@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:15.5
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo17-db1-data:/var/lib/postgresql/data 
+    
+  odoo_web:
+    image: odoo:17
+   
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./odoo_addons:/odoo_addons
+      - ./odoo.conf:/etc/odoo/odoo.conf
+      - odoo17-web-data:/var/lib/odoo
+    #command:
+      #-d db_name 
+      #--update all
+      
+
+volumes:
+  odoo17-web-data:
+  odoo17-db1-data:
+
+
